@@ -1,9 +1,11 @@
-import TemperatureConverter from './TemperatureConverter';
+import Penetration from './Penetration';
+import CritDamage from './CritDamage';
 
 function App() {
   return (
     <div className="App">
-      <TemperatureConverter />
+      <CritDamage />
+      <Penetration />
     </div>
   );
 }

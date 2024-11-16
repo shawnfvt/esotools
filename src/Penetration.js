@@ -99,6 +99,7 @@ export default function Gross() {
     <>
           <Navbar sticky="top"  bg="dark" data-bs-theme="dark" className="text-center"> 
             <Navbar.Brand className="ps-5">
+              <h2 className="text-start">Penetration</h2>
               <h3>Boss Armor: {armor} ({Number((armor/663).toFixed(1))}% damage reduction)</h3>
             </Navbar.Brand>
           </Navbar>
