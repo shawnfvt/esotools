@@ -29,7 +29,7 @@ function ToggleAOE({id, label, onToggleClick, defaultvalue=false}) {
   return (
           <Form.Check type="switch" id={'check-'+id}>
             <Form.Check.Input
-        id={id}
+        id={'check-'+id}
         name={id}
         onChange={onToggleClick}
         defaultChecked={defaultvalue}
@@ -78,7 +78,7 @@ function SliderTremorscale({id, togglevalue, resistvalue, resists, onToggleClick
 
 
 export default function Gross() {
-  const [toggles, setToggles] = useState({light: 1, setpen: 0, piercing: true, forceofnature: 0, resists: 33000 });
+  const [toggles, setToggles] = useState({light: 1, setpen: 0, piercing: true, forceofnature: 0, splintered: 0, resists: 33000 });
   const [armor, setArmor] = useState(calculateArmor(toggles));
   const [resists, setResists] = useState(33000);
   // setArmor(calculateArmor(toggles));
@@ -143,6 +143,7 @@ export default function Gross() {
                 <Toggle id='2hsharp' label='Sharpened 2H Weapon (3276 = 5%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='mace' label='Mace (1650 = 2.5%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='maul' label='Maul or 2x Maces (3300 = 5%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='velothi' label='Velothi Amulet (1650 = 2.5%)' onToggleClick={(e) => handleToggle(e)} />
                 <Slider id='light' label="Light Armor (939/piece)" value={toggles['light']} each={939} min={0} max={7} step={1} defaultValue={1} onToggleClick={(e) => handleToggle(e)} />
                 <Slider id='setpen' label="Set Pen Bonus (1487/bonus)" value={toggles['setpen']} each={1487} min={0} max={7} step={1} onToggleClick={(e) => handleToggle(e)} />
 
@@ -182,6 +183,7 @@ function calculateArmor(toggles) {
   if (toggles['resists']) armor=armor-10+10;
 
   if (toggles['1hsharp']) armor=armor-1638;
+  if (toggles['velothi']) armor=armor-1650;
   if (toggles['2hsharp']) armor=armor-3276;
   if (toggles['mace']) armor=armor-1650;
   if (toggles['2ndmace']) armor=armor-1650;

@@ -29,7 +29,7 @@ function ToggleAOE({id, label, onToggleClick, defaultvalue=false}) {
   return (
           <Form.Check type="switch" id={'check-'+id}>
             <Form.Check.Input
-        id={id}
+        id={'check-'+id}
         name={id}
         onChange={onToggleClick}
         defaultChecked={defaultvalue}
@@ -44,7 +44,7 @@ function ToggleAOE({id, label, onToggleClick, defaultvalue=false}) {
 function Slider({id, label, min, max, value, each, step, defaultValue=0, onToggleClick}) {
   return (
     <>
-      <Form.Label>{label} ({value} = {value*each} = {Number((value*each/219).toFixed(1))}%)</Form.Label>
+      <Form.Label>{label} ({value} = {Number((value*each).toFixed(1))}%)</Form.Label>
       <Form.Range as={Col} id={id} name={id} onChange={onToggleClick} min={min} max={max} step={step} defaultValue={defaultValue} />
     </>
   );
@@ -78,8 +78,8 @@ function SliderTremorscale({id, togglevalue, resistvalue, resists, onToggleClick
 
 
 export default function Gross() {
-  const [toggles, setToggles] = useState({light: 1, setcritchance: 0, precision: true, thiefmundus: true, nbassassin: 0, resists: 33000 });
-  const [critchance, setCritChance] = useState(calculateCritChance(toggles));
+  const [toggles, setToggles] = useState({medium: 5, morascribe: 0, wardenpet: 0, resists: 33000 });
+  const [critdam, setCritDam] = useState(calculateCritDam(toggles));
   const [resists, setResists] = useState(33000);
 
   function handleToggle(i) {
@@ -89,7 +89,7 @@ export default function Gross() {
     if (i.target.type=='range') nextToggles[i.target.name] = i.target.value;
     else nextToggles[i.target.name] = i.target.checked;
     setToggles(nextToggles);
-    setCritChance(calculateCritChance(toggles));
+    setCritDam(calculateCritDam(toggles));
     // setResists(toggles['resists'])
   }
 
@@ -98,43 +98,54 @@ export default function Gross() {
     <>
           <Navbar sticky="top"  bg="dark" data-bs-theme="dark" className="text-center"> 
             <Navbar.Brand className="ps-5">
-              <h3>Crit Chance: {Number((critchance/219).toFixed(1))}% / 100%</h3>
+              <h3>Crit Damage: {Number((critdam).toFixed(1))}% / 125%</h3>
             </Navbar.Brand>
           </Navbar>
         <Container>
           <Row className="py-5">
-            <Col lg={6} sm={12}>
-              <h5>Minor Prophecy / Savagery <Badge pill bg="primary">Group</Badge> (1314 = 6%)</h5>
-                <ToggleAOE id='hemorrhage' label='Nightblade Hemorrhage' onToggleClick={(e) => handleToggle(e)} />
-                <ToggleAOE id='exploitation' label='Sorcerer Exploitation' onToggleClick={(e) => handleToggle(e)} />
-              <h5>Major Prophecy / Savagery (2629 = 12%)</h5>
-                <Toggle id='weaponcritpotion' label='Weapon Critical Potion' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='spellcritpotion' label='Spell Critical Potion' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='camohunter' label='Fighters Camo Hunter' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='magelight' label='Mages Magelight' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='shadowcloak' label='Nightblade Shadow Cloak (Either Bar)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='inferno' label='DK Inferno (Either Bar)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='lotusflower' label='Warden Lotus Flower (Active)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='sunfire' label='Templar Sun Fire (Active)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='oakensoul' label='Oakensoul' onToggleClick={(e) => handleToggle(e)} />
-              <h5>Character Options</h5>
-                <Toggle id='precision' label='Precision CP (320 = 1.46%)' defaultvalue={true} onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='thiefmundus' label='Thief Mundus 7 Divines (2182 = 10%)' defaultvalue={true} onToggleClick={(e) => handleToggle(e)} />
-                <Slider id='nbassassin' label='Nightblade Assassin Skill (438/slotted skill = 2%)' value={toggles['nbassassin']} each={438} min={0} max={6} step={1} onToggleClick={(e) => handleToggle(e)} />
+            <Col lg={4} sm={12}>
+              <h5>Major Force <Badge pill bg="primary">Group</Badge> (20%)</h5>
+                <Toggle id='warhorn' label='Aggressive Warhorn' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='sax' label='Saxhleel Champion' onToggleClick={(e) => handleToggle(e)} />
+              <h5>Minor Brittle <Badge pill bg="primary">Group</Badge> (10%)</h5>
+                <Toggle id='chilled' label='Chilled + Ice Staff' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='colorless' label='Arcanist Colorless Pool' onToggleClick={(e) => handleToggle(e)} />
+              <h5>Support Sets <Badge pill bg="primary">Group</Badge> </h5>
+                <Toggle id='catalyst' label='Elemental Catalyst, Max (15%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='lucent' label='Lucent Echoes (11%)' onToggleClick={(e) => handleToggle(e)} />
             </Col>
-            <Col lg={6} sm={12}>        
+            <Col lg={4} sm={12}>
+              <h5>Minor Force (10%)</h5>
+                <Toggle id='velothi' label='Velothi Amulet' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='barbedtrap' label='Fighters Barbed Trap (Active)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='accelerate' label='Psijic Accelerate (Active)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='oakensoul' label='Oakensoul' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='medusa' label='Medusa' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='tzogvin' label='Tzogvin, Max Stacks' onToggleClick={(e) => handleToggle(e)} />
               <h5>Sets</h5>
-                <Toggle id='orderswrath'label='Orders Wrath (1752 = 8%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='slimecraw'label='Slimecraw (771 = 3.5%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='kilt'label='Kilt Max Stacks (1100 = 5%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='whispers'label='Moras Whispers Max (1528 = 7%)' onToggleClick={(e) => handleToggle(e)} />
-                <Slider id='setcritchance' label="Standard Set Crit Chance (657/line)" value={toggles['setcritchance']} each={657} min={0} max={7} step={1} onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='orderswrath'label='Orders Wrath (8%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='archers'label='Archers Mind Not Sneaking(8%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='archersneak'label='Archers Mind Sneaking (24%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='gourmand'label='Back-Alley Gourmand (13%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='kilt'label='Kilt Max Stacks (10%)' onToggleClick={(e) => handleToggle(e)} />               
+                <Toggle id='sulxan'label='Sul-Xan Proc (12%)' onToggleClick={(e) => handleToggle(e)} />               
+                <Slider id='morascribe' label="Mora Scribe (1% / minor buff)" value={toggles['morascribe']} each={1} min={0} max={12} step={1} onToggleClick={(e) => handleToggle(e)} />
+            </Col>
+            <Col lg={4} sm={12}>        
               <h5>Gear Options</h5>
-                <Toggle id='2hprecise'label='2H Precise Trait (1576 = 7.2%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='1hprecise'label='1H Precise Trait (788 = 3.6%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='dagger'label='Dagger Passive (657 = 3%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='seconddagger'label='Second Dagger Passive (657 = 3%)' onToggleClick={(e) => handleToggle(e)} />
-                <Slider id='light' label="Light Armor (219/piece)" value={toggles['light']} each={219} min={0} max={7} step={1} defaultValue={1} onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='axe'label='1H Axe Passive (6%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='axes'label='2H Axe or Dual Axes Passive (12%)' onToggleClick={(e) => handleToggle(e)} />
+                <Slider id='medium' label="Medium Armor (2%/piece)" value={toggles['medium']} each={2} min={0} max={7} step={1} defaultValue={5} onToggleClick={(e) => handleToggle(e)} />
+              <h5>Character Options</h5>
+                <Toggle id='finesse' label='Finesse CP (8%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='backstabber' label='Backstabber CP (10%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='shadowmundus' label='Shadow Mundus 7 Divines (18%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='hemorrhage' label='Nightblade Passive (10%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='templar' label='Templar Passive (10%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='arcanist' label='Arcanist Passive (12%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='khajiit' label='Khajiit Passive (12%)' onToggleClick={(e) => handleToggle(e)} />
+                <Slider id='wardenpet' label='Warden Animal Skill (4%/slotted skill)' value={toggles['wardenpet']} each={4} min={0} max={6} step={1} onToggleClick={(e) => handleToggle(e)} />
+
 
             </Col>
 
@@ -144,40 +155,48 @@ export default function Gross() {
   );
 }
 
-function calculateCritChance(toggles) {
-  let critchance=2190
-  // major savagery/prophesy
-  if (toggles['camohunter']||toggles['magelight']||toggles['weaponcritpotion']||toggles['spellcritpotion']||toggles['shadowcloak']||toggles['inferno']||toggles['lotusflower']||toggles['sunfire']||toggles['oakensoul']) critchance=critchance+2629;
-  // minor savagery/prophesy
-  if (toggles['exploitation']||toggles['hemorrhage']) critchance=critchance+1314;
-
-  if (toggles['2hprecise']) critchance=critchance+1533;
-  if (toggles['1hprecise']) critchance=critchance+766;
-  if (toggles['dagger']) critchance=critchance+657;
-  if (toggles['seconddagger']) critchance=critchance+657;
-  if (toggles['orderswrath']) critchance=critchance+1752;
-  if (toggles['slimecraw']) critchance=critchance+771;
-  if (toggles['kilt']) critchance=critchance+1100;
-  if (toggles['whispers']) critchance=critchance+1528;
-  if (toggles['thiefmundus']) critchance=critchance+2182;
-  // if (toggles['']) critchance=critchance+;
-  // if (toggles['']) critchance=critchance+;
-  // if (toggles['']) critchance=critchance+;
-  // if (toggles['']) critchance=critchance+;
-  // if (toggles['']) critchance=critchance+;
+function calculateCritDam(toggles) {
+  let critdam=50
+  // minor force
+  if (toggles['velothi']||toggles['barbedtrap']||toggles['accelerate']||toggles['oakensoul']||toggles['medusa']||toggles['tzogvin']) critdam=critdam+10;
+  // major force
+  if (toggles['warhorn']||toggles['sax']) critdam=critdam+20;
+  // minor brittle
+  if (toggles['chilled']||toggles['colorless']) critdam=critdam+10;
 
 
-  if (toggles['light']) critchance=critchance+(219*toggles['light']);
-  if (toggles['setcritchance']) critchance=critchance+(657*toggles['setcritchance']);
-  if (toggles['nbassassin']) critchance=critchance+(438*toggles['nbassassin']);
+  if (toggles['catalyst']) critdam=critdam+15;
+  if (toggles['lucent']) critdam=critdam+11;
+
+  if (toggles['orderswrath']) critdam=critdam+8;
+  if (toggles['archers']) critdam=critdam+8;
+  if (toggles['archersneak']) critdam=critdam+24;
+  if (toggles['gourmand']) critdam=critdam+13;
+  if (toggles['kilt']) critdam=critdam+10;
+  if (toggles['axe']) critdam=critdam+6;
+  if (toggles['axes']) critdam=critdam+12;
+  if (toggles['medium']) critdam=critdam+(2*toggles['medium']);
+  if (toggles['morascribe']) critdam=critdam+(1*toggles['morascribe']);
+  if (toggles['wardenpet']) critdam=critdam+(4*toggles['wardenpet']);
+  if (toggles['shadowmundus']) critdam=critdam+18;
+  if (toggles['hemorrhage']) critdam=critdam+10;
+  if (toggles['finesse']) critdam=critdam+8;
+  if (toggles['backstabber']) critdam=critdam+10;
+  if (toggles['templar']) critdam=critdam+10;
+  if (toggles['arcanist']) critdam=critdam+12;
+  if (toggles['sulxan']) critdam=critdam+12;
+  if (toggles['khajiit']) critdam=critdam+12;
+
+
+
 
 
   // if (toggles['tankresists']) armor=armor;
 
 
-  // if (armor < 0) armor=0;
+  if (critdam > 125) critdam=125;
   console.log(toggles);
   // console.log("total is "+armor);
-  return critchance;
+  return critdam;
 }
 
