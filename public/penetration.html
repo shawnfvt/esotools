@@ -67,60 +67,11 @@
 
 
           <section>
-            <p>What does penetration mean?</p>
-            <h3 data-fragment-index="1" class="fragment fade-in">Breaking through enemy armor</h3>
+            <p>So they just always resist that last 10% damage?</p>
+            <h3 data-fragment-index="1" class="fragment fade-in">Yup. Sorry to break the bad news.</h3>
           </section>
 
 
-          <section>
-            Average yearly revenue: <span id="avgyearlyrevdisp">0</span>
-            <br />
-                  <input id="avgyearlyrev" type="range" class="form-range py-4 w-75" min=1 max=1000 step=1 value=678 onInput="calcVal();">
-                  <div class="w-75 m-auto">
-              <div class="form-check form-switch fs-5 float-end">
-              <input class="form-check-input" type="checkbox" id="usebillions" onInput="calcVal();" CHECKED>
-              <label class="form-check-label" for="usebillions">Millions / Billions</label>
-              </div>
-            </div>
-          </section>
-          <section>
-            Revenue per day: <span id="costperday" class="text-success">0</span><Br />
-            <br />
-            What portion of that would be lost in a cyberattack? <br />
-            <input id="revimpactpct" type="range" style="width: 90%;" class="form-range py-4" min=1 max=100 step=1 value=15 onInput="calcVal();"><br />
-            <div class="fs-2">Revenue impact: <span id="revimpactpctdisp">15</span>% </div>
-          </section>
-          <section>
-            Outage cost per day at <span id="revimpactpctdisp2">10</span>% impact: <span id="outagecostperday" class="text-danger">0</span><br />
-            <br />
-            How quickly do you think you could recover?<br />
-            <input id="daysdowntime" type="range" style="width: 90%;" class="form-range py-4" min=1 max=60 step=1 value=23 onInput="calcVal();">
-            <div class="fs-2"><span id="daysdowntimedisp">23</span> days of downtime</div>
-            <br />
-            <br />
-            <div class="fs-6">* average cyberattack recovery = 23 days according to [what? not data breach report]</div>
-          </section>
-          <section>
-            <div class="fs-2">
-              How much revenue is potentially at risk from a cyberattack?
-            </div>
-            <h2 class="r-fit-text text-danger fragment fade-in" id="outagecost">0</h2>
-            <div class="fs-3">
-              <ul>
-                <li> Yearly revenue <span id="avgyearlyrevdisp2">0</span></li>
-                <li><span id="revimpactpctdisp3">6</span>% impact to revenue during an attack</li>
-                <li><span id="daysdowntimedisp2">23</span> days to recover</li>
-              </ul>
-            </div>
-          </section>
-          <section>
-            What's the ROI if we improve recovery time?<br /><br />
-              <ul>
-                <li>One minute faster?  <span id="oneminfaster"   class="fragment fade-in text-success">0</span></li>
-                <li>One hour faster?  <span id="onehourfaster"  class="fragment fade-in text-success">0</span></li>
-                <li>One day faster?   <span id="onedayfaster"   class="fragment fade-in text-success">0</span></li>
-              </ul>
-          </section>
         </div>
       </div>
   </body>
