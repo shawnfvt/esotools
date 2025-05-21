@@ -78,9 +78,19 @@ function SliderTremorscale({id, togglevalue, resistvalue, resists, onToggleClick
 
 
 export default function Gross() {
-  const [toggles, setToggles] = useState({medium: 5, morascribe: 0, wardenpet: 0, resists: 33000 });
+  const searchParams = new URLSearchParams(document.location.search)
+  const pretoggles={medium: 5, morascribe: 0, wardenpet: 0, resists: 33000, overcap: ""}
+  for (const [key, value] of searchParams.entries()) {
+    pretoggles[key]=true;
+    console.log(pretoggles);
+  }
+
+  // const [toggles, setToggles] = useState({medium: 5, morascribe: 0, wardenpet: 0, resists: 33000, overcap: "" });
+  const [toggles, setToggles] = useState(pretoggles);
   const [critdam, setCritDam] = useState(calculateCritDam(toggles));
   const [resists, setResists] = useState(33000);
+
+
 
   function handleToggle(i) {
     console.log(i.target.name);
@@ -98,17 +108,17 @@ export default function Gross() {
     <>
           <Navbar sticky="top"  bg="dark" data-bs-theme="dark" className="text-center"> 
             <Navbar.Brand className="ps-5">
-              <h3>Crit Damage: {Number((critdam).toFixed(1))}% / 125%</h3>
+              <h3>Crit Damage: <span className={toggles['overcap']}>{Number((critdam).toFixed(1))}%</span> / 125%</h3>
             </Navbar.Brand>
           </Navbar>
         <Container>
           <Row className="py-5">
             <Col lg={4} sm={12}>
               <h5>Major Force <Badge pill bg="primary">Group</Badge> (20%)</h5>
-                <Toggle id='warhorn' label='Aggressive Warhorn' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='sax' label='Saxhleel Champion' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='warhorn' defaultvalue={toggles['warhorn']} label='Aggressive Warhorn' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='sax' defaultvalue={toggles['sax']} label='Saxhleel Champion' onToggleClick={(e) => handleToggle(e)} />
               <h5>Minor Brittle <Badge pill bg="primary">Group</Badge> (10%)</h5>
-                <Toggle id='chilled' label='Chilled + Ice Staff' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='chilled' defaultvalue={toggles['chilled']} label='Chilled + Ice Staff' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='colorless' label='Arcanist Colorless Pool' onToggleClick={(e) => handleToggle(e)} />
               <h5>Support Sets <Badge pill bg="primary">Group</Badge> </h5>
                 <Toggle id='catalyst' label='Elemental Catalyst, Max (15%)' onToggleClick={(e) => handleToggle(e)} />
@@ -194,7 +204,9 @@ function calculateCritDam(toggles) {
   // if (toggles['tankresists']) armor=armor;
 
 
-  if (critdam > 125) critdam=125;
+  // if (critdam > 125) critdam=125;
+  if (critdam > 125) toggles['overcap']="text-danger";
+  else toggles['overcap']="";
   console.log(toggles);
   // console.log("total is "+armor);
   return critdam;

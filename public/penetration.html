@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Dragon Trading Company Elder Scrolls Online Calculators"
+    />
+    <title>ESO Pen</title>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/reveal.min.css" integrity="sha512-V5fKCVKOFy36w8zJmLzPH5R6zU6KvuHOvxfMRczx2ZeqTjKRGSBO9yiZjCKEJS3n6EmENwrH/xvSwXqxje+VVA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <link rel="stylesheet" href="bootstrap_jennyn.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/white.min.css" integrity="sha512-0BwgQfciYCCQc2rKINa7wL2k5vGAjF5dyL90A598QMimsVDie6M/4ShOLG07HJpNtSc9JB6m2s9B9OGam3rmTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+            rel="stylesheet" 
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
+            crossorigin="anonymous">
+
+
+  </head>
+  <body>
+      <div class="reveal">
+        <div class="slides">
+          <section>
+            <img src="dtc-bot.svg" class="float-end" style="border: none; box-shadow: none;" width="200"/>
+            <p>Ooooooh let's do some MATH</p>
+            <p>What are we talking about today?</p>
+            <h1 data-fragment-index="1" class="fragment fade-in">Penetration</h1>
+            <p data-fragment-index="1" class="fragment fade-in">a.k.a. "pen"</p>
+          </section>
+
+          <section>
+            <p>What does penetration mean?</p>
+            <h3 data-fragment-index="1" class="fragment fade-in">Breaking through enemy armor</h3>
+            <p data-fragment-index="2" class="fragment fade-in">Ok how much armor do they have?</p>
+            <h3 data-fragment-index="3" class="fragment fade-in">18,200 (in dungeons &amp; trials)</h3>
+            <p data-fragment-index="4" class="fragment fade-in">Great, another wacky ZOS number...</p>
+            <h3 data-fragment-index="5" class="fragment fade-in">Yes, it's just one of those things.</h3>
+          </section>
+
+          <section>
+            <p>Ok but really, what does that 18,200 mean to me?</p>
+            <h3 data-fragment-index="1" class="fragment fade-in">18,200 / 663 = <br />27% damage reduction</h3>
+            <p data-fragment-index="2" class="fragment fade-in">So by default, enemies just take 27% less damage?<br />I hit for 10,000 and they only take 7300?</p>
+            <h3 data-fragment-index="3" class="fragment fade-in">You got it pal!</h3>
+          </section>
+
+          <section>
+            <p>Not cool! Can we reduce their armor somehow?</p>
+            <h5 data-fragment-index="1" class="fragment fade-in">Absolutely! Most Tanks will apply:</h5>
+            <p data-fragment-index="2" class="fragment fade-in">Major Breach: <span class="text-danger">-5948</span> = 12252 (18%)</p>
+            <p data-fragment-index="3" class="fragment fade-in">Minor Breach: <span class="text-danger">-2974</span> = 9278 (14%)</p>
+            <p data-fragment-index="4" class="fragment fade-in">Crusher enchant: <span class="text-danger">-2108</span> = 7170 (11%)</p>
+            <p data-fragment-index="5" class="fragment fade-in">Plus you can run the piercing CP: <span class="text-danger">-700</span> = 6470 (10%)</p>
+          </section>
+
+
+
+          <section>
+            <p>What does penetration mean?</p>
+            <h3 data-fragment-index="1" class="fragment fade-in">Breaking through enemy armor</h3>
+          </section>
+
+
+          <section>
+            Average yearly revenue: <span id="avgyearlyrevdisp">0</span>
+            <br />
+                  <input id="avgyearlyrev" type="range" class="form-range py-4 w-75" min=1 max=1000 step=1 value=678 onInput="calcVal();">
+                  <div class="w-75 m-auto">
+              <div class="form-check form-switch fs-5 float-end">
+              <input class="form-check-input" type="checkbox" id="usebillions" onInput="calcVal();" CHECKED>
+              <label class="form-check-label" for="usebillions">Millions / Billions</label>
+              </div>
+            </div>
+          </section>
+          <section>
+            Revenue per day: <span id="costperday" class="text-success">0</span><Br />
+            <br />
+            What portion of that would be lost in a cyberattack? <br />
+            <input id="revimpactpct" type="range" style="width: 90%;" class="form-range py-4" min=1 max=100 step=1 value=15 onInput="calcVal();"><br />
+            <div class="fs-2">Revenue impact: <span id="revimpactpctdisp">15</span>% </div>
+          </section>
+          <section>
+            Outage cost per day at <span id="revimpactpctdisp2">10</span>% impact: <span id="outagecostperday" class="text-danger">0</span><br />
+            <br />
+            How quickly do you think you could recover?<br />
+            <input id="daysdowntime" type="range" style="width: 90%;" class="form-range py-4" min=1 max=60 step=1 value=23 onInput="calcVal();">
+            <div class="fs-2"><span id="daysdowntimedisp">23</span> days of downtime</div>
+            <br />
+            <br />
+            <div class="fs-6">* average cyberattack recovery = 23 days according to [what? not data breach report]</div>
+          </section>
+          <section>
+            <div class="fs-2">
+              How much revenue is potentially at risk from a cyberattack?
+            </div>
+            <h2 class="r-fit-text text-danger fragment fade-in" id="outagecost">0</h2>
+            <div class="fs-3">
+              <ul>
+                <li> Yearly revenue <span id="avgyearlyrevdisp2">0</span></li>
+                <li><span id="revimpactpctdisp3">6</span>% impact to revenue during an attack</li>
+                <li><span id="daysdowntimedisp2">23</span> days to recover</li>
+              </ul>
+            </div>
+          </section>
+          <section>
+            What's the ROI if we improve recovery time?<br /><br />
+              <ul>
+                <li>One minute faster?  <span id="oneminfaster"   class="fragment fade-in text-success">0</span></li>
+                <li>One hour faster?  <span id="onehourfaster"  class="fragment fade-in text-success">0</span></li>
+                <li>One day faster?   <span id="onedayfaster"   class="fragment fade-in text-success">0</span></li>
+              </ul>
+          </section>
+        </div>
+      </div>
+  </body>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/js/reveal.min.js" integrity="sha512-QYXU3Cojl94ZRiZRjUZpyg1odj9mKTON9MsTMzGNx/L3JqvMA3BQNraZwsZ83UeisO+QMVfFa83SyuYYJzR9hw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+      });
+    </script>
+
+
+</html>
