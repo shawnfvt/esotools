@@ -82,7 +82,6 @@ export default function Gross() {
   const pretoggles={medium: 5, morascribe: 0, wardenpet: 0, resists: 33000, overcap: ""}
   for (const [key, value] of searchParams.entries()) {
     pretoggles[key]=true;
-    console.log(pretoggles);
   }
 
   // const [toggles, setToggles] = useState({medium: 5, morascribe: 0, wardenpet: 0, resists: 33000, overcap: "" });
@@ -119,10 +118,10 @@ export default function Gross() {
                 <Toggle id='sax' defaultvalue={toggles['sax']} label='Saxhleel Champion' onToggleClick={(e) => handleToggle(e)} />
               <h5>Minor Brittle <Badge pill bg="primary">Group</Badge> (10%)</h5>
                 <Toggle id='chilled' defaultvalue={toggles['chilled']} label='Chilled + Ice Staff' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='colorless' label='Arcanist Colorless Pool' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='colorless' defaultvalue={toggles['colorless']} label='Arcanist Colorless Pool' onToggleClick={(e) => handleToggle(e)} />
               <h5>Support Sets <Badge pill bg="primary">Group</Badge> </h5>
-                <Toggle id='catalyst' label='Elemental Catalyst, Max (15%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='lucent' label='Lucent Echoes (11%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='catalyst' defaultvalue={toggles['catalyst']} label='Elemental Catalyst, Max (15%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='lucent' defaultvalue={toggles['lucent']} label='Lucent Echoes (11%)' onToggleClick={(e) => handleToggle(e)} />
             </Col>
             <Col lg={4} sm={12}>
               <h5>Minor Force (10%)</h5>
@@ -151,7 +150,7 @@ export default function Gross() {
                 <Toggle id='backstabber' label='Backstabber CP (10%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='shadowmundus' label='Shadow Mundus 7 Divines (18%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='hemorrhage' label='Nightblade Passive (10%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='templar' label='Templar Passive (10%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='templar' label='Templar Passive (12%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='arcanist' label='Arcanist Passive (12%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='khajiit' label='Khajiit Passive (12%)' onToggleClick={(e) => handleToggle(e)} />
                 <Slider id='wardenpet' label='Warden Animal Skill (4%/slotted skill)' value={toggles['wardenpet']} each={4} min={0} max={6} step={1} onToggleClick={(e) => handleToggle(e)} />
@@ -192,7 +191,7 @@ function calculateCritDam(toggles) {
   if (toggles['hemorrhage']) critdam=critdam+10;
   if (toggles['finesse']) critdam=critdam+8;
   if (toggles['backstabber']) critdam=critdam+10;
-  if (toggles['templar']) critdam=critdam+10;
+  if (toggles['templar']) critdam=critdam+12;
   if (toggles['arcanist']) critdam=critdam+12;
   if (toggles['sulxan']) critdam=critdam+12;
   if (toggles['khajiit']) critdam=critdam+12;

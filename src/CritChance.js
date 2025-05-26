@@ -120,7 +120,8 @@ export default function Gross() {
               <h5>Character Options</h5>
                 <Toggle id='precision' label='Precision CP (320 = 1.46%)' defaultvalue={true} onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='thiefmundus' label='Thief Mundus 7 Divines (2182 = 10%)' defaultvalue={true} onToggleClick={(e) => handleToggle(e)} />
-                <Slider id='nbassassin' label='Nightblade Assassin Skill (438/slotted skill = 2%)' value={toggles['nbassassin']} each={438} min={0} max={6} step={1} onToggleClick={(e) => handleToggle(e)} />
+                <Slider id='nbassassin' label='Nightblade Assassin Skill (548/slotted skill = 2.5%)' value={toggles['nbassassin']} each={548} min={0} max={6} step={1} onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='nb' label='Nightblade Flanking (1445 = 6.6%)' onToggleClick={(e) => handleToggle(e)} />
                 <Slider id='necro' label='Necro Execute Passive (2190/slotted skill = 10%)' value={toggles['necro']} each={2190} min={0} max={6} step={1} onToggleClick={(e) => handleToggle(e)} />
             </Col>
             <Col lg={6} sm={12}>        
@@ -170,6 +171,7 @@ function calculateCritChance(toggles) {
   if (toggles['thiefmundus']) critchance=critchance+2182;
   if (toggles['bow']) critchance=critchance+1314;
   if (toggles['vinedusk']) critchance=critchance+1314;
+  if (toggles['nb']) critchance=critchance+1445;
   // if (toggles['']) critchance=critchance+;
   // if (toggles['']) critchance=critchance+;
   // if (toggles['']) critchance=critchance+;
@@ -179,7 +181,7 @@ function calculateCritChance(toggles) {
 
   if (toggles['light']) critchance=critchance+(219*toggles['light']);
   if (toggles['setcritchance']) critchance=critchance+(657*toggles['setcritchance']);
-  if (toggles['nbassassin']) critchance=critchance+(438*toggles['nbassassin']);
+  if (toggles['nbassassin']) critchance=critchance+(548*toggles['nbassassin']);
   if (toggles['necro']) critchance=critchance+(2190*toggles['necro']);
 
 

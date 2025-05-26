@@ -150,7 +150,6 @@ export default function Gross() {
               <h5>Character Options</h5>
                 <Toggle id='piercing' label='Piercing CP (700 = 1%)' defaultvalue={true} onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='necro' label='Necro Grave Lord (1500 = 2.2%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='nb' label='Nightblade Flanking (2974 = 4.5%)' onToggleClick={(e) => handleToggle(e)} />
                 <Slider id='splintered' label='Arcanist Passive (991/slotted skill)' value={toggles['splintered']} each={991} min={0} max={6} step={1} onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='woodelf' label='Wood Elf Passive (950 = 1.4%)' onToggleClick={(e) => handleToggle(e)} />
                 <Slider id='forceofnature' label='Force of Nature CP (660/status effect)' value={toggles['forceofnature']} each={660} min={0} max={8} step={1} onToggleClick={(e) => handleToggle(e)} />
