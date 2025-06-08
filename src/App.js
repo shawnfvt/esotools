@@ -1,13 +1,12 @@
-import Penetration from './Penetration';
-import CritDamage from './CritDamage';
-import CritChance from './CritChance';
+// import Penetration from './Penetration';
+// import CritDamage from './CritDamage';
+// import CritChance from './CritChance';
+import Team from './Team';
 
 function App() {
   return (
     <div className="App">
-      <CritDamage />
-      <CritChance />
-      <Penetration />
+      <Team />
     </div>
   );
 }
