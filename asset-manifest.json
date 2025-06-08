@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/esotools/static/css/main.cbc512fe.css",
-    "main.js": "/esotools/static/js/main.0e9f6a16.js",
+    "main.js": "/esotools/static/js/main.36656cbb.js",
     "static/js/453.80a7b15c.chunk.js": "/esotools/static/js/453.80a7b15c.chunk.js",
     "index.html": "/esotools/index.html",
     "main.cbc512fe.css.map": "/esotools/static/css/main.cbc512fe.css.map",
-    "main.0e9f6a16.js.map": "/esotools/static/js/main.0e9f6a16.js.map",
+    "main.36656cbb.js.map": "/esotools/static/js/main.36656cbb.js.map",
     "453.80a7b15c.chunk.js.map": "/esotools/static/js/453.80a7b15c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.cbc512fe.css",
-    "static/js/main.0e9f6a16.js"
+    "static/js/main.36656cbb.js"
   ]
 }
