@@ -12,9 +12,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 
-// defaultvalue doesn't work because it doesn't automatically run the calculation on initialization
+// defaultValue doesn't work because it doesn't automatically run the calculation on initialization
 
-function Toggle({id, label, onToggleClick, defaultvalue=false, lessCommon=false}) {
+function Toggle({id, label, onToggleClick, defaultValue=false, lessCommon=false}) {
   return (
       <Form.Check // prettier-ignore
         type="switch"
@@ -23,20 +23,20 @@ function Toggle({id, label, onToggleClick, defaultvalue=false, lessCommon=false}
         label={label}
         onChange={onToggleClick}
         className={lessCommon ? 'visually-hidden' : 'undefined'}
-        defaultChecked={defaultvalue}
+        defaultChecked={defaultValue}
       />
   );
 }
 
 
-function ToggleAOE({id, label, onToggleClick, defaultvalue=false, lessCommon=false}) {
+function ToggleAOE({id, label, onToggleClick, defaultValue=false, lessCommon=false}) {
   return (
           <Form.Check type="switch" id={'check-'+id} className={lessCommon ? 'visually-hidden' : 'undefined'}>
             <Form.Check.Input
         id={'check-'+id}
         name={id}
         onChange={onToggleClick}
-        defaultChecked={defaultvalue}
+        defaultChecked={defaultValue}
         />
             <Form.Check.Label>{label} <Badge pill bg="primary">AOE</Badge></Form.Check.Label>
           </Form.Check>
@@ -45,24 +45,26 @@ function ToggleAOE({id, label, onToggleClick, defaultvalue=false, lessCommon=fal
 }
 
 
-function Slider({id, label, min, max, value, each, factor, step, defaultValue=0, onToggleClick, lessCommon=false}) {
+function Slider({id, label, min, max, value, each, factor, step, defaultValue=false, onToggleClick, lessCommon=false}) {
   return (
     <>
-      <Form.Label className={lessCommon ? 'visually-hidden' : 'undefined'}>{label} ({value} = {value*each} = {Number((value*each/factor).toFixed(1))}%)</Form.Label>
-      <Form.Range className={lessCommon ? 'visually-hidden' : 'undefined'} as={Col} id={id} name={id} onChange={onToggleClick} min={min} max={max} step={step} defaultValue={defaultValue} />
+      <Form.Label className={lessCommon ? 'visually-hidden' : 'undefined'}>{label}</Form.Label><br />
+      <Form.Range className={lessCommon ? 'visually-hidden' : 'w-50 ps-5'} as={Col} id={id} name={id} onChange={onToggleClick} min={min} max={max} step={step} defaultValue={defaultValue} />
+      <Form.Label className={lessCommon ? 'visually-hidden' : 'w-50 text-end pe-5'}>({value} = {value*each} = {Number((value*each/factor).toFixed(1))}%)</Form.Label>
+
     </>
   );
 }
 
 
-function ToggleTremorscale({id, label, resistvalue, onToggleClick, defaultvalue}) {
+function ToggleTremorscale({id, label, resistvalue, onToggleClick, defaultValue}) {
   return (
           <Form.Check type="switch" id={'check-'+id}>
             <Form.Check.Input
         id={id}
         name={id}
         onChange={onToggleClick}
-        defaultChecked={defaultvalue}
+        defaultChecked={defaultValue}
         />
             <Form.Check.Label>Tremorscale ({Number((resistvalue*.08).toFixed(0))} = {Number((resistvalue*.08/663).toFixed(1))}%) <Badge pill bg="primary">AOE</Badge></Form.Check.Label>
           </Form.Check>
@@ -81,10 +83,10 @@ function SliderTremorscale({id, togglevalue, resistvalue, resists, onToggleClick
 }
 
 
-function SliderArmorWeight({id, value, each, onToggleClick}) {
+function SliderArmorWeight({id, value, each, onToggleClick, defaultValue}) {
   return (
     <>
-      <Form.Range className="w-75 text-start" id={id} name={id} onChange={onToggleClick} min={0} max={7} step={1} defaultValue={2} />
+      <Form.Range className="w-75 text-start" id={id} name={id} onChange={onToggleClick} min={0} max={7} step={1} defaultValue={defaultValue} />
       <Form.Label className="">Medium Armor: {7-value} pieces. 2% Crit Damage/piece = {Number(((7-value)*2).toFixed(1))}% <small>(Also {Number(((7-value)*2).toFixed(1))}% Weapon/Spell damage!)</small></Form.Label>
       <Form.Label className="">Light Armor: {value} pieces. 939 Penetration/piece = {value*939} = {Number((939*value/663).toFixed(1))}% and 219 Crit Chance/piece = {value*219} = {value}%</Form.Label>
     </>
@@ -92,7 +94,7 @@ function SliderArmorWeight({id, value, each, onToggleClick}) {
 }
 
 
-function SliderArmorWeightX({id, value, each, onToggleClick}) {
+function SliderArmorWeightX({id, value, each, onToggleClick, defaultValue}) {
   return (
     <>
       <InputGroup className="">
@@ -100,7 +102,7 @@ function SliderArmorWeightX({id, value, each, onToggleClick}) {
               2% Crit Damage/piece = {Number(((7-value)*2).toFixed(1))}%<br />
               <small>(Also {Number(((7-value)*2).toFixed(1))}% Weapon/Spell damage!)</small>
         </Form.Label>
-        <Form.Range className="col-3 w-25" id={id} name={id} onChange={onToggleClick} min={0} max={7} step={1} defaultValue={2} />
+        <Form.Range className="col-3 w-25" id={id} name={id} onChange={onToggleClick} min={0} max={7} step={1} defaultValue={defaultValue} />
         <Form.Label className="col text-start ps-3">Light Armor: {value} pieces<br />
               939 Penetration/piece = {value*939} = {Number((939*value/663).toFixed(1))}%<br />
               219 Crit Chance/piece = {value*219} = {value}%
@@ -116,33 +118,37 @@ export default function Gross() {
   const pretoggles=
     {  
 
-// group stuff
 
+      // sliders
        light: 1, 
-       medium: 5, 
-
        setpen: 0, 
-
-       piercing: true, 
-       precision: true, 
-
+       setcritchance: 0, 
        forceofnature: 0, 
        splintered: 0, 
-       resists: 33000,
-       setcritchance: 0, 
-
-       thiefmundus: true, 
-
-       slimecraw: true, 
        morascribe: 0, 
 
        nbassassin: 0,
        wardenpet: 0, 
-       overcap: ""
+
+       // CP defaults
+       piercing: true, 
+       precision: true, 
+
+       resists: 33000,
+
+       thiefmundus: true,
+       camohunter: false,
+       slimecraw: true, 
+
+       overcappen: "",
+       overcapchance: "",
+       overcapcritdam: ""
 
      };
   for (const [key, value] of searchParams.entries()) {
-    pretoggles[key]=true;
+    console.log(key,value);
+    if (value) pretoggles[key]=Number(value);
+    else pretoggles[key]=true;
   }
   const [toggles, setToggles] = useState(pretoggles);
   const [lessCommon, setLessCommon] = useState(true);
@@ -197,7 +203,7 @@ export default function Gross() {
               Some sets or skills aren't used often, to see those click this toggle: <Button className="btn btn-sm" onClick={toggleContent}>Hide/Show Uncommon Sources</Button><br />
               <br />
               There are running totals at the bottom of the page showing the result of your current choices.<br />
-              <span class="text-danger">This code isn't that smart. For example, you can equip 3 mythics, a bow, and daggers at the same time. Sorry!</span>
+              <span className="text-danger">This code isn't that smart. For example, you can equip 3 mythics, a bow, and daggers at the same time. Sorry!</span>
 
             </Col>
           </Row>
@@ -223,22 +229,22 @@ export default function Gross() {
             <Col lg={4} sm={12}>
               <h5>Major Breach (5948 = 9%)</h5>
               <h5>Minor Breach (2974 = 4.5%)</h5>      
-                <Toggle id='pierce' defaultvalue={toggles['pierce']} label='Pierce Armor (Major+Minor)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='elesus' defaultvalue={toggles['elesus']} label='Elemental Susceptibility (Major)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='pierce' defaultValue={toggles['pierce']} label='Pierce Armor (Major+Minor)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='elesus' defaultValue={toggles['elesus']} label='Elemental Susceptibility (Major)' onToggleClick={(e) => handleToggle(e)} />
                 <ToggleAOE id='wall' label='Frost Wall of Elements (Minor)' onToggleClick={(e) => handleToggle(e)} />
                 <ToggleAOE id='caltrops' label='Assault Razor Caltrops (Major)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='psijic' label='Psijic Crushing Weapon (Major)' lessCommon={lessCommon} onToggleClick={(e) => handleToggle(e)} />
-                <ToggleAOE id='fissure' label='Warden Deep Fissure (Major+Minor)' onToggleClick={(e) => handleToggle(e)} />
+                <ToggleAOE id='fissure' defaultValue={toggles['fissure']} label='Warden Deep Fissure (Major+Minor)' onToggleClick={(e) => handleToggle(e)} />
                 <ToggleAOE id='boneyard' label='Necromancer Boneyard (Major)' lessCommon={lessCommon} onToggleClick={(e) => handleToggle(e)} />
                 <ToggleAOE id='noxious' label='Dragonknight Noxious Breath (Major)' lessCommon={lessCommon} onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='marktarget' label='Nightblade Mark Target (Major)' lessCommon={lessCommon} onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='fatewoven' defaultvalue={toggles['fatewoven']} label='Arcanist Fatewoven Armor (Minor)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='fatewoven' defaultValue={toggles['fatewoven']} label='Arcanist Fatewoven Armor (Minor)' onToggleClick={(e) => handleToggle(e)} />
               <h5>Support Sets &amp; Skills</h5>
-                <ToggleAOE id='crimson' defaultvalue={toggles['crimson']} label='Crimson Oath (3541 = 5.3%)' onToggleClick={(e) => handleToggle(e)} />
-                <ToggleAOE id='alkosh' defaultvalue={toggles['alkosh']} label='Alkosh (6000 = 9%)' onToggleClick={(e) => handleToggle(e)} />
+                <ToggleAOE id='crimson' defaultValue={toggles['crimson']} label='Crimson Oath (3541 = 5.3%)' onToggleClick={(e) => handleToggle(e)} />
+                <ToggleAOE id='alkosh' defaultValue={toggles['alkosh']} label='Alkosh (6000 = 9%)' onToggleClick={(e) => handleToggle(e)} />
                 <ToggleTremorscale id='tremorscale' resistvalue={toggles['resists']} resists={resists} onToggleClick={(e) => handleToggle(e)} />
                 <SliderTremorscale id='resists' togglevalue={toggles['tremorscale']} resistvalue={toggles['resists']} resists={resists} onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='2hicrusher' defaultvalue={toggles['2hicrusher']} label='2H Infused Crusher Enchant (2108 = 3%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='2hicrusher' defaultValue={toggles['2hicrusher']} label='2H Infused Crusher Enchant (2108 = 3%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='2hcrusher'label='2H Crusher Enchant (1622 = 2.4%)' lessCommon={lessCommon} onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='1hicrusher'label='1H Infused Crusher Enchant (1054 = 1.6%)' lessCommon={lessCommon} onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='1hcrusher'label='1H Crusher Enchant (811 = 1.2%)' lessCommon={lessCommon} onToggleClick={(e) => handleToggle(e)} />
@@ -247,19 +253,19 @@ export default function Gross() {
             </Col>
             <Col lg={4} sm={12}>
               <h5>Minor Prophecy / Savagery (6%)</h5>
-                <Toggle id='hemorrhage' defaultvalue={toggles['hemorrhage']} label='Nightblade in group using an Assassination skill - Hemorrhage' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='exploitation' defaultvalue={toggles['exploitation']} label='Sorcerer in group using a Dark Magic skill - Exploitation' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='hemorrhage' defaultValue={toggles['hemorrhage']} label='Nightblade in group using an Assassination skill - Hemorrhage' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='exploitation' defaultValue={toggles['exploitation']} label='Sorcerer in group using a Dark Magic skill - Exploitation' onToggleClick={(e) => handleToggle(e)} />
             </Col>
             <Col lg={4} sm={12}>
               <h5>Major Force (20%)</h5>
-                <Toggle id='warhorn' defaultvalue={toggles['warhorn']} label='Aggressive Warhorn' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='sax' defaultvalue={toggles['sax']} label='Saxhleel Champion' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='warhorn' defaultValue={toggles['warhorn']} label='Aggressive Warhorn' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='sax' defaultValue={toggles['sax']} label='Saxhleel Champion' onToggleClick={(e) => handleToggle(e)} />
               <h5>Minor Brittle (10%)</h5>
-                <Toggle id='chilled' defaultvalue={toggles['chilled']} label='Chilled + Ice Staff' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='colorless' defaultvalue={toggles['colorless']} label='Arcanist Colorless Pool' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='chilled' defaultValue={toggles['chilled']} label='Chilled + Ice Staff' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='colorless' defaultValue={toggles['colorless']} label='Arcanist Colorless Pool' onToggleClick={(e) => handleToggle(e)} />
               <h5>Support Sets </h5>
-                <Toggle id='catalyst' defaultvalue={toggles['catalyst']} label='Elemental Catalyst, Max (15%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='lucent' defaultvalue={toggles['lucent']} label='Lucent Echoes (11%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='catalyst' defaultValue={toggles['catalyst']} label='Elemental Catalyst, Max (15%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='lucent' defaultValue={toggles['lucent']} label='Lucent Echoes (11%)' onToggleClick={(e) => handleToggle(e)} />
             </Col>
           </Row>
           <Row className="pt-5">
@@ -274,7 +280,7 @@ export default function Gross() {
               Most DPS don't wear much heavy armor.
             </Col>
             <Col lg={8} className="text-start">
-              <SliderArmorWeight id='light' value={toggles['light']} onToggleClick={(e) => handleToggle(e)} />
+              <SliderArmorWeight id='light' defaultValue={toggles['light']} value={toggles['light']} onToggleClick={(e) => handleToggle(e)} />
             </Col>
           </Row>
           <Row className="ps-2 pb-3">
@@ -283,13 +289,13 @@ export default function Gross() {
               If you're wearing one of these, choose it here:
             </Col>
             <Col lg={8} className="text-start">        
-                <Toggle id='velothi' label='Velothi Amulet (1650 Pen + Minor Force)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='oakensoul' label='Oakensoul (Major Proph + Minor Force)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='kilt'label='Kilt Max Stacks (1110/5% crit chance  + 10% crit dam)' onToggleClick={(e) => handleToggle(e)} />               
-                <Toggle id='orderswrath'label='Orders Wrath (2257/10.3% crit chance + 8% crit dam)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='sulxan'label='Sul-Xan Proc (2160/9.8% crit chance + 12% crit dam)' onToggleClick={(e) => handleToggle(e)} />
-                <Slider id='morascribec' label="Mora Scribe (128/0.6% crit chance / major buff)" value={toggles['morascribe']}  lessCommon={lessCommon} each={128} min={0} max={12} factor={219} step={1} onToggleClick={(e) => handleToggle(e)} />
-                <Slider id='morascribed' label="Mora Scribe (1% crit damage / minor buff)" value={toggles['morascribe']}  lessCommon={lessCommon} each={1} min={0} max={12} factor={1} step={1} onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='velothi' defaultValue={toggles['velothi']} label='Velothi Amulet (1650 Pen + Minor Force)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='oakensoul' defaultValue={toggles['oakensoul']} label='Oakensoul (Major Proph + Minor Force)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='kilt' defaultValue={toggles['kilt']} label='Kilt Max Stacks (1110/5% crit chance  + 10% crit dam)' onToggleClick={(e) => handleToggle(e)} />               
+                <Toggle id='orderswrath'  defaultValue={toggles['orderswrath']} label='Orders Wrath (2257/10.3% crit chance + 8% crit dam)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='sulxan' defaultValue={toggles['sulxan']} label='Sul-Xan Proc (2160/9.8% crit chance + 12% crit dam)' onToggleClick={(e) => handleToggle(e)} />
+                <Slider id='morascribec' label="Mora Scribe (128/0.6% crit chance / major buff)" defaultValue={toggles['morascribec']} value={toggles['morascribec']}  lessCommon={lessCommon} each={128} min={0} max={12} factor={219} step={1} onToggleClick={(e) => handleToggle(e)} />
+                <Slider id='morascribed' label="Mora Scribe (1% crit damage / minor buff)" defaultValue={toggles['morascribed']} value={toggles['morascribed']}  lessCommon={lessCommon} each={1} min={0} max={12} factor={1} step={1} onToggleClick={(e) => handleToggle(e)} />
             </Col>
           </Row>
           <Row className="ps-5">
@@ -305,48 +311,45 @@ export default function Gross() {
           </Row>
           <Row className="ps-5">
             <Col lg={4} sm={12}>        
-              <h5>Gear Options</h5>
+                <Slider id='forceofnature' label='Force of Nature CP (660/status effect)' defaultValue={toggles['forceofnature']} value={toggles['forceofnature']} each={660} min={0} max={8} factor={663} step={1} onToggleClick={(e) => handleToggle(e)} />
+                <Slider id='splintered' label='Arcanist Passive (1240/slotted skill)' defaultValue={toggles['splintered']} value={toggles['splintered']} each={1240} min={0} max={6} factor={663} step={1} onToggleClick={(e) => handleToggle(e)} />
+                <Slider id='setpen' label="Any Set Pen Line (1487/line)" defaultValue={toggles['setpen']} value={toggles['setpen']} each={1487} min={0} max={7} factor={663} step={1} onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='piercing' label='Piercing CP (700 = 1%)' defaultValue={true} onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='1hsharp' label='Sharpened 1H Weapon (1638 = 2.5%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='2hsharp' label='Sharpened 2H Weapon (3276 = 5%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='mace' label='Mace (1650 = 2.5%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='maul' label='Maul or 2x Maces (3300 = 5%)' onToggleClick={(e) => handleToggle(e)} />
-                <Slider id='setpen' label="Any Set Pen Line (1487/line)" value={toggles['setpen']} each={1487} min={0} max={7} factor={663} step={1} onToggleClick={(e) => handleToggle(e)} />
-
-              <h5>Character Options</h5>
-                <Toggle id='piercing' label='Piercing CP (700 = 1%)' defaultvalue={true} onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='necro' label='Necro Grave Lord (Active) (3271 = 5%)' onToggleClick={(e) => handleToggle(e)} />
-                <Slider id='splintered' label='Arcanist Passive (1240/slotted skill)' value={toggles['splintered']} each={1240} min={0} max={6} factor={663} step={1} onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='woodelf' label='Wood Elf Passive (950 = 1.4%)' onToggleClick={(e) => handleToggle(e)} />
-                <Slider id='forceofnature' label='Force of Nature CP (660/status effect)' value={toggles['forceofnature']} each={660} min={0} max={8} factor={663} step={1} onToggleClick={(e) => handleToggle(e)} />
             </Col>
             <Col lg={4} sm={12}>        
               <h5>Major Prophecy / Savagery (2629 = 12%)</h5>
                 <Toggle id='weaponcritpotion' label='Weapon Critical Potion' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='spellcritpotion' label='Spell Critical Potion' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='camohunter' label='Fighters Camo Hunter' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='camohunter' label='Fighters Camo Hunter' defaultValue={toggles['camohunter']} onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='magelight' label='Mages Magelight' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='shadowcloak' label='Nightblade Shadow Cloak (Either Bar)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='inferno' label='DK Inferno (Either Bar)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='lotusflower' label='Warden Lotus Flower (Active)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='sunfire' label='Templar Sun Fire (Active)' onToggleClick={(e) => handleToggle(e)} />
               <h5>Character Options</h5>
-                <Toggle id='precision' label='Precision CP (320 = 1.46%)' defaultvalue={true} onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='thiefmundus' label='Thief Mundus 7 Divines (2182 = 10%)' defaultvalue={true} onToggleClick={(e) => handleToggle(e)} />
-                <Slider id='nbassassin' label='Nightblade Assassin Skill (548/slotted skill = 2.5%)' value={toggles['nbassassin']} each={548} min={0} max={6} factor={219} step={1} onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='nb' label='Nightblade Flanking (1445 = 6.6%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='precision' label='Precision CP (320 = 1.46%)' defaultValue={true} onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='thiefmundus' label='Thief Mundus 7 Divines (2182 = 10%)' defaultValue={true} onToggleClick={(e) => handleToggle(e)} />
+                <Slider id='nbassassin' label='Nightblade Assassin Skill (548/slotted skill = 2.5%)' defaultValue={toggles['nbassassin']} value={toggles['nbassassin']} each={548} min={0} max={6} factor={219} step={1} onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='nbflanking' defaultValue={toggles['nbflanking']} label='Nightblade Flanking (1445 = 6.6%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='necroex' label='Necro Death Knell Passive (20%)' onToggleClick={(e) => handleToggle(e)} />
               <h5>Sets</h5>
                 <Toggle id='whispers'label='Moras Whispers Max (1528 = 7%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='slimecraw'label='Monster Helm 1pc (657 = 3%)' defaultvalue={true} onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='forestwraith'label='Forest Wraith (Class Skills Only) (3351 = 15.3%)' onToggleClick={(e) => handleToggle(e)} />
-                <Slider id='setcritchance' label="Any Set Crit Chance Line (657/line)" value={toggles['setcritchance']} each={657} min={0} max={7} factor={219}  step={1} onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='slimecraw'label='Monster Helm 1pc (657 = 3%)' defaultValue={true} onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='forestwraith' defaultValue={toggles['forestwraith']} label='Forest Wraith (Class Skills Only) (3351 = 15.3%)' onToggleClick={(e) => handleToggle(e)} />
+                <Slider id='setcritchance' label="Any Set Crit Chance Line (657/line)" defaultValue={toggles['setcritchance']} value={toggles['setcritchance']} each={657} min={0} max={7} factor={219}  step={1} onToggleClick={(e) => handleToggle(e)} />
 
               <h5>Gear Options</h5>
-                <Toggle id='2hprecise'label='2H Precise Trait (1576 = 7.2%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='2hprecise' defaultValue={toggles['2hprecise']} label='2H Precise Trait (1576 = 7.2%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='1hprecise'label='1H Precise Trait (788 = 3.6%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='dagger'label='Dagger Passive (657 = 3%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='seconddagger'label='Second Dagger Passive (657 = 3%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='bow'label='Bow Passive (1314 = 6%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='dagger' defaultValue={toggles['dagger']} label='Dagger Passive (657 = 3%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='seconddagger' defaultValue={toggles['seconddagger']} label='Second Dagger Passive (657 = 3%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='bow' defaultValue={toggles['bow']} label='Bow Passive (1314 = 6%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='vinedusk'label='Bow Distance Passive (1314 = 6%)' onToggleClick={(e) => handleToggle(e)} />
 
 
@@ -356,23 +359,22 @@ export default function Gross() {
                 <Toggle id='barbedtrap' label='Fighters Barbed Trap (Active)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='accelerate' label='Psijic Accelerate (Active)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='medusa' label='Medusa' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='tzogvin' label='Tzogvin, Max Stacks' onToggleClick={(e) => handleToggle(e)} />
-              <h5>Sets</h5>
-                <Toggle id='archers'label='Archers Mind Not Sneaking(8%)' lessCommon={lessCommon} onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='archersneak'label='Archers Mind Sneaking (24%)' lessCommon={lessCommon} onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='gourmand'label='Back-Alley Gourmand (13%)' lessCommon={lessCommon} onToggleClick={(e) => handleToggle(e)} />
               <h5>Gear Options</h5>
                 <Toggle id='axe'label='1H Axe Passive (6%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='axes'label='2H Axe or Dual Axes Passive (12%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='tzogvin' label='Tzogvin, Max Stacks' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='archers'label='Archers Mind Not Sneaking(8%)' lessCommon={lessCommon} onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='archersneak'label='Archers Mind Sneaking (24%)' lessCommon={lessCommon} onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='gourmand'label='Back-Alley Gourmand (13%)' lessCommon={lessCommon} onToggleClick={(e) => handleToggle(e)} />
               <h5>Character Options</h5>
                 <Toggle id='finesse' label='Finesse CP (8%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='backstabber' label='Backstabber CP (10%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='shadowmundus' label='Shadow Mundus 7 Divines (18%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='hemorrhage' label='Nightblade Passive (10%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='templar' label='Templar Passive (12%)' onToggleClick={(e) => handleToggle(e)} />
-                <Toggle id='arcanist' label='Arcanist Passive (12%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='nightblade' defaultValue={toggles['nightblade']} label='Nightblade Assassin Passive (10%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='templar' defaultValue={toggles['templar']} label='Templar Aedric Passive (12%)' onToggleClick={(e) => handleToggle(e)} />
+                <Toggle id='arcanist' defaultValue={toggles['arcanist']} label='Arcanist Herald Passive (12%)' onToggleClick={(e) => handleToggle(e)} />
                 <Toggle id='khajiit' label='Khajiit Passive (12%)' onToggleClick={(e) => handleToggle(e)} />
-                <Slider id='wardenpet' label='Warden Animal Skill (4%/slotted skill)' value={toggles['wardenpet']} each={4} min={0} max={6} factor={1} step={1} onToggleClick={(e) => handleToggle(e)} />
+                <Slider id='wardenpet' label='Warden Animal Skill (4%/slotted skill)' defaultValue={toggles['wardenpet']} value={toggles['wardenpet']} each={4} min={0} max={6} factor={1} step={1} onToggleClick={(e) => handleToggle(e)} />
 
 
             </Col>
@@ -442,7 +444,6 @@ function calculatePen(toggles) {
   if (toggles['maul']) pen=pen+3300;
   if (toggles['piercing']) pen=pen+700;
   if (toggles['necro']) pen=pen+3271;
-  if (toggles['nb']) pen=pen+2974;
   if (toggles['woodelf']) pen=pen+950;
   if (toggles['light']) pen=pen+(939*toggles['light']);
   if (toggles['setpen']) pen=pen+(1487*toggles['setpen']);
@@ -481,7 +482,7 @@ function calculateCritChance(toggles) {
   if (toggles['thiefmundus']) critchance=critchance+2182;
   if (toggles['bow']) critchance=critchance+1314;
   if (toggles['vinedusk']) critchance=critchance+1314;
-  if (toggles['nb']) critchance=critchance+1445;
+  if (toggles['nbflanking']) critchance=critchance+1445;
   // if (toggles['']) critchance=critchance+;
   // if (toggles['']) critchance=critchance+;
   // if (toggles['']) critchance=critchance+;
@@ -526,9 +527,9 @@ function calculateCritDam(toggles) {
   if (toggles['morascribed']) critdam=critdam+(1*toggles['morascribe']);
   if (toggles['wardenpet']) critdam=critdam+(4*toggles['wardenpet']);
   if (toggles['shadowmundus']) critdam=critdam+18;
-  if (toggles['hemorrhage']) critdam=critdam+10;
   if (toggles['finesse']) critdam=critdam+8;
   if (toggles['backstabber']) critdam=critdam+10;
+  if (toggles['nightblade']) critdam=critdam+10;
   if (toggles['templar']) critdam=critdam+12;
   if (toggles['arcanist']) critdam=critdam+12;
   if (toggles['sulxan']) critdam=critdam+12;
